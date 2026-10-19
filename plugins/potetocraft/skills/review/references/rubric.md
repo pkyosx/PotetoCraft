@@ -5,7 +5,7 @@ Checks for each lens in the review skill. Use only the lenses the change calls f
 ## Correctness
 
 Ask these, and show the call path for any "yes":
-- Kill the process halfway through, then start it again. Does it land where a clean run would? If the answer is "it depends what the first run left behind", say what step should have tidied that up.
+- Ask what happens if the process dies halfway through and is started again. Would it land where a clean run would? If the answer is "it depends what the first run left behind", say what step should have tidied that up.
 - Pick a failing call in the change. Follow the error. Does the user see it, does a caller handle it, or does it disappear?
 - Feed it an empty list, a single item, the largest allowed value, a very large input, and text with emoji or a byte order mark.
 - Where several workers share data, what makes them take turns? Code that enforces it counts. A comment asking nicely does not.
