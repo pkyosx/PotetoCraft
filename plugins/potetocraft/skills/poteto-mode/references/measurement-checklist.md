@@ -12,7 +12,7 @@ Work with the profilers and timers already on the machine or in the project. If 
 | A claim that something got faster or slower | Five or more per side | All of them |
 | Picking one option over another | Five or more per side | All of them, with no shortcut |
 
-A fast failure is wrong at any precision, which is why even a rough number gets the two Real work checks.
+A fast failure is wrong at any precision, which is why even a rough number gets the Real work checks.
 
 ## Set the target
 
