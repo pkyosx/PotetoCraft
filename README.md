@@ -48,7 +48,7 @@ codex plugin marketplace add pkyosx/PotetoCraft
 codex plugin add potetocraft@potetocraft
 ```
 
-To pin a version, add the marketplace at a tag or commit (`--ref <tag>` for Codex, `pkyosx/PotetoCraft#<tag>` for Claude Code).
+To pin a version, add the marketplace at a tag (`--ref <tag>` for Codex, `pkyosx/PotetoCraft#<tag>` for Claude Code). Installed copies are cached by version number, so every release bumps the version in both manifests.
 
 ### License
 
@@ -100,7 +100,7 @@ codex plugin marketplace add pkyosx/PotetoCraft
 codex plugin add potetocraft@potetocraft
 ```
 
-要固定版本時，請加上 tag 或 commit（Codex 用 `--ref <tag>`，Claude Code 用 `pkyosx/PotetoCraft#<tag>`）。
+要固定版本時，請加上 tag（Codex 用 `--ref <tag>`，Claude Code 用 `pkyosx/PotetoCraft#<tag>`）。安裝後的內容依版本號存放，所以每次發布都要更新兩份 manifest 的版本號。
 
 ### 授權
 

@@ -2,7 +2,7 @@
 
 The last step of every playbook. You report, propose, and stop. The user decides what leaves the machine.
 
-1. Summarize the outcome in a few sentences, leading with what changes for the user.
+1. Summarize the outcome in a few sentences, leading with what changes for the user. Write this part for a reader who does not read code: name the feature or page and the behavior, not file names or line numbers. Keep file and line detail in the evidence below.
 2. List the evidence: commands run, test output, measurements, screenshots, with paths.
 3. List what you did not verify, and why.
 4. List the risks and open decisions.

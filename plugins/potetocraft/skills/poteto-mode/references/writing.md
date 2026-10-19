@@ -42,4 +42,4 @@ Keep one idea per sentence. If a reader would have to go back over it, break it 
 - Headings use sentence case. Quotes are straight, and emoji never decorate.
 - Bold earns its place as a short label ending in a period, when the words after it add something the label did not say. "**Latency.** Latency improved" fails, so write it as one plain sentence.
 - Punctuate with periods and commas. Never use the em dash or en dash characters.
-- Put a colon only in front of a list or a code block. A colon joining two halves of a sentence should become a period.
+- Put a colon only in front of a list or a code block. A colon joining two halves of a sentence should become a period. A label colon that the reader's house style expects, such as a bold field name followed by its value, is fine in any language.

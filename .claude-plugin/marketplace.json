@@ -10,7 +10,7 @@
       "name": "potetocraft",
       "description": "Classify the work, follow a playbook, keep a todo list, and verify against the real artifact before reporting. Includes review, explain, design, tdd, sharpen, catch-up, and correct skills.",
       "source": "./plugins/potetocraft",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "category": "development"
     }
   ]
