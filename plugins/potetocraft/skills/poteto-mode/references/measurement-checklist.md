@@ -1,30 +1,37 @@
 # Measurement checklist
 
-Use this whenever you produce a performance number: a before and after, a regression claim, or a choice between options. Every answer must come from something you ran, never from reading code and guessing.
+Run through this list before you report any timing, throughput, or resource number. That includes a single speedup claim, a suspected regression, and a choice between two designs. Every item is answered from a run you made, not from reading source.
 
-When the user only wants a rough estimate, a single run will do. Questions 4 and 7 still need answers, and the report must mention that only one run happened. Comparing options always needs the full procedure.
+Work with the profilers and timers already on the machine or in the project. If the one you want is absent, note that in the report and use what you have.
 
-Use only tools already on the machine or in the project. If a profiler or tool you want is missing, say so in the report and work with what exists.
+## Set the target
 
-## Before running
+Write the sentence you hope to report before you measure, with a unit. For example, "the CLI starts in under 3 s, down from 4.2 s." Then read the harness that produces the number. Note where its clock starts and stops and what falls outside that window.
 
-- Write the claim you expect to make, with numbers and units ("p50 export latency drops 30% on the 60k-row file"). The questions below test that sentence.
-- Read the benchmark code. Write down which region it times, which events it counts, and what it leaves out.
-- Check machine load with `uptime`. Check the core count with `nproc` on Linux or `sysctl -n hw.ncpu` on macOS. If the machine is busy, do not stop or kill anything you did not start. Alternate the runs so both sides see the same noise, and say so.
+## Fair fight
 
-## Questions
+- **Same conditions on both sides.** Optimized build, real flags, identical input, identical dependency versions, and a cache state that matches real use. If one side ran with defaults, you compared settings, not code. Correct it and rerun before you pick a winner.
+- **A quiet machine.** Look at `uptime` for load and at `nproc` (Linux) or `sysctl -n hw.ncpu` (macOS) for cores. If other work is running, leave it alone. Interleave the two sides so both absorb the same noise, and mention it.
+- **Enough runs.** Five or more per side, interleaved A, B, A, B. Report the median and the min to max range. A gap smaller than that range is no measurable difference.
 
-1. **What limits it?** Name the bottleneck. Look at CPU per process (`top`, `ps`), I/O wait, and any profiler the language runtime already ships. Profile in a separate run, since profiling slows the work. If the load generator saturates first, you measured the load generator.
-2. **Was each side configured like production?** Release builds, production flags, the same data, the same versions, caches as warm or cold as real use. A side left on default settings turns the result into a test of configuration, not of the change. Fix the settings and measure again before naming a winner.
-3. **Does it break a physical limit?** Do the arithmetic against disk and network bandwidth and core count. Cutting a step worth 10% of the total cannot speed the whole thing up by much more than 10%. Any result beyond such a limit points to caching, work that never ran, or a defect.
-4. **Did anything fail?** Count errors and non-success responses. Check outputs are correct, not only present. Failures are often fast, and retries are slow.
-5. **Does it repeat?** Run each side at least five times, alternating A and B. Report the median and the range. When the difference sits inside the normal variation between runs, call it no measurable difference.
-6. **Does it matter end to end?** Measure the path a user waits on, with realistic sizes and concurrency. Report a micro result as its share of that path.
-7. **Did the work happen?** Confirm the timed region did the work. The request arrived, the rows were written, the result was used. Lazy values nobody reads and timeouts both produce fast, false numbers.
+## Real work
+
+- **Nothing failed.** Count errors and non-success exits. Verify the outputs hold the right values. A crash is often quick, and a retry is often slow.
+- **The work happened inside the timer.** The file was parsed, the rows were stored, the value was consumed. A lazy result nobody reads, or a timeout, gives a quick and meaningless time.
+- **The math is possible.** Compare against disk speed, network bandwidth, and core count. Removing a step that costs 10% of the run cannot save much more than 10%. A result past that bound means a cache hit, skipped work, or a bug.
+
+## Why this number
+
+- **Find the limiter.** Watch per process CPU with `top` or `ps`, check I/O wait, and use the runtime's own profiler if it has one. Profile in a separate run, because profiling adds overhead. If the thing generating input maxes out first, the result describes that tool, not your code.
+- **Place it in the whole.** Time what a user actually waits for, at realistic size and concurrency. Report a micro benchmark as a fraction of that.
+
+## Quick estimates
+
+If the user asks only for a ballpark, one run is enough. You still answer the two Real work items about failures and work inside the timer, and you say that only one run was made. Choosing between options always needs the full list.
 
 ## Report
 
-- Open with one of four verdicts: faster, slower, no measurable difference, or inconclusive.
-- State the number and its unit, how many runs, the spread, and what limits it. Example: "p95 import time fell from 2.4 s to 1.9 s over 9 runs per side. After the change it ranged 1.8 to 2.0 s, limited by disk reads."
-- The verdict is inconclusive if the limiter is unknown, if either side was not tuned, or if question 4 or 7 has no answer. Say which piece is missing.
-- Save the raw runs to a file in the scratch directory and give its path.
+- Start with the verdict. Choose among faster, slower, inconclusive, and no measurable difference.
+- Give the value with its unit, run count, spread, and limiter. For instance, "cold start went from 4.2 s to 2.8 s, 9 runs each, 2.7 to 3.0 s after, limited by config file parsing."
+- Mark it inconclusive when the limiter is unknown, a side was not configured fairly, or a Real work item is unanswered. Name the gap.
+- Write the raw run data to a file in the scratch directory and give the path.

@@ -2,15 +2,22 @@
 
 **Apply when** you review or shape code that is hard to follow.
 
-Code is maintainable when a reader can understand it with little effort. Measure that effort on two axes.
-The first is layers, the number of hops between a question and its answer.
-The second is state, the hidden or changing context the reader must keep in mind.
-Inline wrappers with one caller and adapters with only one implementation.
-Merge a layer into its neighbor when it only mirrors the neighbor's methods and parameters.
-Prefer interfaces that hide a real decision behind a small surface.
-Shrink the scope of state. Prefer return values to mutation, locals to fields, and derived values to values kept in sync.
-State an invariant once at the boundary, not in every consumer.
-A new layer or new state must pay for itself. It should remove more reading effort than it adds.
+Good code costs a newcomer little effort. Two things drive that cost:
+- **Hops.** How many files and functions a reader must open to answer one question.
+- **Hidden state.** How much changing context they must keep in their head while reading.
 
-The test is a new reader answering "where does this value come from?" and "what can change it?" in about half a minute.
-This is the human side of [guard-the-context-window](guard-the-context-window.md). Readers have finite working memory too.
+To cut hops:
+- Fold a wrapper into its only caller.
+- Drop an interface that has a single implementation.
+- Merge two layers when one just repeats the other's method names and arguments.
+- Keep abstractions that hide a real decision behind a narrow entry point.
+
+To cut hidden state:
+- Return a value instead of mutating a shared one.
+- Use a local variable instead of a field.
+- Compute a value when needed instead of storing a copy that must be kept in sync.
+- Validate a rule where data enters, and let everything downstream trust it.
+
+Every new layer or field must save readers more effort than it costs them.
+
+Try it on a stranger. Can they find where a value comes from, and what can change it, in about thirty seconds? This is the human version of [guard-the-context-window](guard-the-context-window.md). People run out of working memory too.

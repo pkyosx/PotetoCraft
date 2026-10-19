@@ -1,53 +1,47 @@
 # Writing
 
-Use this for every piece of prose: replies, docs, PR descriptions, commit messages, comments. The patterns apply in any language the user writes in. Translate the examples to the matching habit in that language.
+These rules cover all prose you produce, including replies, docs, PR descriptions, commit messages, and code comments. They hold in whatever language the user writes. When the user writes in another language, apply the same idea to that language's own bad habits.
 
-Write clean as you draft. A cleanup pass afterward misses most of these.
+Get it right in the first draft. Polishing afterward catches only a fraction of these.
 
-## Content
+## Three habits
 
-- **Empty participle tails.** A sentence ends in "highlighting X" or "ensuring Y" and adds nothing. Cut the tail, or state the fact it hints at.
-- **Unnamed sources.** "Experts say" or "it is widely known". Name the source you read, or drop the claim.
-- **Claims without evidence.** Each claim carries its evidence or a label (measured, inferred, guess) in the same sentence.
-- **Invented links or quotes.** Link only what you produced or read this session.
-- **Text that fits any project.** A sentence you could paste into some other project's docs without edits carries no information. Replace it with a fact, number, or instruction about this one.
-- **Generic endings.** "This sets us up well for the future." End on the last real fact or the next concrete step.
+1. **Be specific to this project.** If a sentence could be pasted into any other repo's README unchanged, it says nothing. Swap it for a fact, a number, or an instruction about this code.
+2. **Attach evidence to claims.** Each claim carries its proof or a label (measured, inferred, guess) in the same sentence. Name the source you actually read. Link only to things you created or opened in this session, and never invent a quote.
+3. **Put the reader's outcome first.** Start with what changes for the user, then what the next maintainer has to know. Brevity never justifies dropping a detail, tradeoff, or open decision the reader needs.
 
-## Word choice
+## Rewrites
 
-- **Inflated words.** "utilize", "leverage", "facilitate", "numerous", "delve", "pivotal", "robust", "seamless". Use "use", "help", "many", or the precise word.
-- **Dressed-up "is".** "serves as", "stands as", "boasts". Write "is" or "has".
-- **Abstract metaphor nouns.** "substrate", "north star", "flywheel", "surface area", "vector". Name the concrete thing.
-- **Synonym rotation.** Calling one thing by three names in a paragraph. Pick one name and repeat it.
-- **Adverbs propping up verbs.** "significantly faster" becomes the measured number. "runs quickly" becomes "takes 40 ms".
-- **Piled hedges.** "could potentially perhaps". Use one hedge, or none if you checked.
-- **Filler.** Cut "in order to" down to "to". Replace "owing to the fact that" with "because". Drop "it is important to note that".
+| Instead of | Write |
+|---|---|
+| "The cache was refactored, improving performance." | "The cache now skips the disk read on a hit. Lookups dropped from 12 ms to 3 ms." |
+| "It is widely accepted that..." | Name who said it, or cut the sentence. |
+| "We utilize a robust queue to facilitate retries." | "We use a queue so failed jobs retry." |
+| "The config file serves as the source of truth." | "The config file is the source of truth." |
+| "This is the north star for the API surface area." | Name the real goal and the real functions. |
+| Job, task, work item, used for one thing | Pick "job" and keep it. |
+| "The build is much faster now." | "The build takes 41 s instead of 68 s." |
+| "This might possibly help somewhat." | One hedge, or none if you checked. |
+| "With the aim of", "for the reason that" | "To", "because". |
+| "The token is validated." | "The middleware validates the token." |
+| "It is not just a parser, it is a framework." | Say what it is. |
+| Three adjectives because three sounds right | As many as are true. |
+| "timeout → retry ×3 → fail" | "After a timeout it retries three times, then gives up." |
+| "The scheduler dreams of idle cores." | "The scheduler places jobs on idle cores." |
+| "The new flow feels smooth." | "The new flow saves one click and one page load." |
+| "Overall, this positions us well going forward." | Stop at the last real fact or the next step. |
 
-## Sentence shape
+Also cut stock openers and closers such as "Great question", "Certainly!", "Hope this helps", and "Let me know if". Do not agree by reflex or praise the user. Say what you actually think, disagreement included.
 
-- **Long sentences.** If the reader must reread, split it. One idea per sentence.
-- **Passive voice hiding the actor.** "The file is parsed" becomes "the loader parses the file".
-- **"Not only X, but Y" framing.** State Y.
-- **Forced groups of three.** Use the number of items you actually have.
-- **Over-compression.** Arrows, dropped articles, and verbless fragments make the reader decode. "bad date → exit 2" becomes "A bad date makes the parser exit with code 2."
-- **Flourish.** Aphorisms, personified code, figurative verbs. Say the literal thing.
+## Sentences
 
-## Punctuation and layout
+Keep one idea per sentence. If a reader would have to go back over it, break it in two. Watch for "-ing" tails such as "..., ensuring reliability" that add a vague gloss. Delete them or state the concrete fact.
 
-- **Long dashes.** Do not use em or en dashes. End the sentence or use a comma.
-- **Mid-sentence colons.** A colon before a list or code block is fine. Elsewhere, rewrite as two sentences.
-- **Bold everywhere.** Bold only a lead-in label that ends in a period and is followed by new detail.
-- **Label lists that repeat themselves.** "**Speed:** speed improved" becomes a plain sentence.
-- **Title Case Headings.** Use sentence case.
-- **Decorative emoji and curly quotes.** Remove emoji. Use straight quotes.
+## Formatting
 
-## Tone
-
-- **Chatbot phrases.** "Great question", "Certainly!", "Hope this helps", "Let me know if". Cut them and answer directly.
-- **Flattery and automatic agreement.** Give your real judgment, including disagreement.
-- **Feelings instead of mechanisms.** "The API feels natural" becomes what the API does: "a renamed column fails the build".
-
-## Order
-
-- Lead with what changes for the user, then what the next maintainer inherits.
-- Short does not mean thin. Keep every detail, tradeoff, and open decision the reader needs.
+- No em dash or en dash characters. Use a period or a comma.
+- A colon is fine before a list or a code block. In the middle of a sentence, split into two sentences.
+- Bold only a short lead-in label that ends with a period and is followed by new information.
+- If a label just repeats its own content, such as "**Latency.** Latency improved", write a normal sentence.
+- Headings use sentence case.
+- No decorative emoji. Straight quotes only.

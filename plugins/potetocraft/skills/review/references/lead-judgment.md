@@ -1,28 +1,23 @@
 # Lead judgment
 
-How the lead decides which findings reach the user.
+Reviewers report candidates. You decide which ones the user sees. Run each candidate through four gates, in order, and stop at the first gate it fails.
 
-## Verify first
+1. **True?** Open the file at the cited line. Does the code really do what the finding says? If not, drop it.
+2. **Reachable?** Trace the callers. Reviewers usually saw one slice, and you can see the whole chain. A finding like "this list could be empty" survives only if some caller can hand it an empty list past the existing types and validation.
+3. **In scope?** The finding must concern lines this change touched or behavior it altered. A complaint about older code, or about a convention the repo follows deliberately, is out.
+4. **Harmful?** Name the concrete damage. "I would have used a class here" names none. Neither does "pull this into a helper" unless a second, different use is clearly coming.
 
-Open the cited code for every finding. If the line does not say what the finding claims, drop it. If the failure path cannot be reached, drop it. Reviewers see a slice. You can read the whole call chain.
+A finding that clears all four gates gets more weight when two reviewers with different lenses found it on their own, when it describes an actual sequence of calls, or when it changes what you believed about the code.
 
-## Common false positives
+Be slow to drop anything about security or correctness. A missed real bug costs far more than the minutes spent confirming a false alarm.
 
-- **Filler.** A reviewer with nothing serious to say inflates nits. If every finding is a nit, the code is probably fine. Say so.
-- **Hypothetical input.** "What if this is null?" counts only if a caller can pass null. Check validation upstream and the types.
-- **Early abstraction.** A request to extract an interface or helper counts only if the code must change in a second way soon.
-- **Taste.** "I would do it differently" without a concrete harm is not a finding.
-- **Missing context.** Findings about code the change did not touch, or about a pattern the rest of the repo uses on purpose.
-
-## Signs a finding is real
-
-- It names a concrete path, not a possibility.
-- Two reviewers with different lenses reached it separately.
-- It shows a gap in your own picture of the code.
-- You read it and think "yes, that would happen."
-
-Give security and correctness findings extra care before you drop one. Dropping a real bug costs more than checking a false one.
+If almost everything left is cosmetic, the change is likely in good shape. Tell the user that plainly instead of padding the list.
 
 ## Ranking
 
-Rank by cost to users if it ships. A blocker breaks behavior, loses data, opens a security hole, or breaks a caller. A should-fix adds real cost later. A nit is optional. When unsure between two ranks, pick the higher one and say why.
+Order the survivors by what it would cost users if the change shipped as is.
+- **Blocker.** Wrong behavior, lost data, a security hole, or a broken caller.
+- **Should fix.** No harm today, but a real cost later.
+- **Nit.** Take it or leave it.
+
+Torn between two levels? Choose the more severe one and give your reason.

@@ -1,15 +1,17 @@
 # Test Behavior, Not Implementation
 
-**Apply when** you write, change, or decide whether to keep a test.
+**Apply when** a test is being added, edited, or judged worth keeping.
 
-Each test asserts something the code promises to its callers, whether those are people or other systems.
-Behavior is what those users can observe. Examples are what a call returns, which errors it raises, state a caller can query later, and side effects outside the process such as a request sent or a row written.
-Implementation is what they cannot see, such as private helpers, the order of internal calls, and intermediate data.
-Judge each test with two imagined edits.
-First, break the behavior. Return a wrong value or skip an effect. A test that stays green here is worthless.
-Second, restructure the internals while keeping every observable result. A test that breaks under this edit is coupled to internals.
-Keep tests that catch the first edit and survive the second. Rewrite or remove the rest.
-Call the code the way its users do, and feed it a specific input. The expected value comes from the spec, never from copying what the code printed.
-Assert what the contract promises, no more and no less. An exact error message nobody reads is too much. The error type callers branch on is right.
+A test is a promise written down. It should describe what someone outside the code relies on, and nothing else.
 
-Common hollow tests compare the code against its own output, assert on data the test built itself, or check only that some result exists.
+Outside observers can see return values, raised errors, data they can read back later, and effects that leave the process, such as a file on disk or an outgoing email. They cannot see helper functions, call order inside the module, or temporary structures. Tests that reach into the second group make every refactor painful.
+
+Quick check for any test, using a date parser as the example:
+- **Sabotage it.** Make `parse("2024-02-30")` return a date instead of an error. Does the test go red? If not, it protects nothing.
+- **Reshuffle it.** Replace the regex inside with a hand-written scanner that gives the same answers. Does the test still pass? If not, it is tied to the inside.
+
+A good test fails the sabotage and passes the reshuffle. For tests the current change touches, fix the ones that do not. Mention other weak tests in the report instead of removing them.
+
+Write the test from the spec. Call the public entry point with a concrete input, and type the expected answer from what the behavior should be. Do not paste in whatever the code printed. Match the precision of the promise. If callers check the error class, assert the class. Do not pin the message text unless someone reads it.
+
+Watch for tests that compare a function to itself, check only that something came back, or verify values the test itself put there.

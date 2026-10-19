@@ -1,16 +1,21 @@
 # Model the Domain
 
-**Apply when** you write stateful logic, or when code branches heavily or repeats the same assumption about a shape across files.
+**Apply when** code holds state, grows many branches, or repeats one assumption about a data shape in several files.
 
-Put the real rules of the domain into a data structure instead of spreading them across conditionals.
-The right structure makes invalid states impossible to write and removes branches.
-Choosing it now is cheap. Recovering it later looks like a refactor and gets postponed.
-Use a state machine instead of several booleans that must agree.
-Use a typed model instead of loose parameters.
-Use a lookup table, registry, or tagged union instead of matching branches in many files.
-Organize a module around one body of domain knowledge, not around steps like load, check, transform, and save.
-When nothing obvious fits, write down what must never happen and how the data is read, then pick the structure that encodes exactly that.
-Do not force it. If the current code is clear, local, and unlikely to grow, leave it plain.
+Let the data carry the rules. When the shape is right, impossible cases cannot be written and many `if` statements disappear.
 
-You skipped this when a new feature adds one more branch to an existing if/else chain, or a new flag that has to be kept consistent with an older one by hand.
-You followed it when the new case is a new entry in a structure, not a new branch in the code.
+Example. A video player tracks `isLoading`, `isPlaying`, and `hasError` as three booleans. Nothing stops all three from being true. Replace them with one `status` field whose values are `loading`, `playing`, `paused`, and `failed`. Now the bad combination cannot exist.
+
+Common swaps:
+| Instead of | Prefer |
+| --- | --- |
+| booleans that must agree | one enum or a state machine |
+| a long list of positional arguments | a typed record or struct |
+| the same `switch` in five files | a single table or registry keyed by kind |
+| modules named after steps such as parse and save | modules named after one concept they own |
+
+If no pattern fits, list the states that must never occur and the ways the data gets read. Choose the shape that makes exactly those true.
+
+Getting the shape right on day one is cheap. Fixing it later turns into a refactor that keeps slipping. Still, do not reshape code that is small, readable, and not growing.
+
+The sign of success is that the next new case is one more row in a structure, not one more branch in the code.

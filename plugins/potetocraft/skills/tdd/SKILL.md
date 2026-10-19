@@ -1,51 +1,41 @@
 ---
 name: tdd
-description: Write a failing test first, make it pass, then clean up. Use when the user requests test-driven development, a red test, or a regression test, or when a bug already has an obvious, cheap local test target.
+description: Write a failing test first, make it pass, then clean up. Use when the user asks for test-driven development, a red test first, or a regression test, and when a bug sits next to an existing test file that makes a quick local test easy.
 ---
 
 # TDD
 
-Make the wanted behavior executable before you change production code. The test fails before the change and passes after it.
+Turn the behavior you want into a test that runs. It must fail now and pass once the change is in.
 
-## When to use it
+## Decide first
 
-- The user requests test-driven development, a red test first, or a regression test.
-- A bug has an obvious, cheap test target that already exists, such as a unit or integration test file for that code path.
+Go ahead when the user asked for test-first work, a red test, or a regression test. Also go ahead when the bug sits in code that already has a nearby test file you can extend cheaply.
 
-## When to skip it
+Do not write a new test, and tell the user why, if the only test you could write would:
+- need a test harness the project does not have yet
+- need the full stack, production-only state, or large unrelated fixtures
+- mostly verify mocks, rely on sleeps and timing, or restate the implementation line by line
 
-Skip the new test and say why when any of these hold.
+Skip it too when nobody can say exactly how to trigger the bug. In all of these cases, use the cheapest honest check you have, such as a small script, a command that shows the bug, or the app itself. No test beats a misleading one.
 
-- No test path is obvious, and building one would mean new harness setup.
-- The only possible test depends on slow full-stack setup, state that exists only in production, or big fixtures unrelated to the bug.
-- The test would mostly check mocks, depend on timing, or copy the current implementation.
-- The reproduction steps are vague.
+## The cycle, by example
 
-Then use the closest cheap check instead. A focused script, a command that reproduces the bug, or a run of the app. A missing test is better than a bad one.
+Say a CSV splitter breaks `"Smith, Jr.",42` into three fields instead of two.
 
-## Red
+1. **Pin the gap.** Expected `["Smith, Jr.", "42"]`. Actual `["\"Smith", " Jr.\"", "42"]`. That one line is the smallest input that shows it.
+2. **Find the home.** Add the case to the splitter's existing test file, the narrowest one that covers this code.
+3. **Write the assertion.** Call the public split function and compare the returned list. Do not assert on internal helpers or on how many times something was called. See [test-behavior-not-implementation](../poteto-mode/references/principles/test-behavior-not-implementation.md).
+4. **Watch it fail.** Run it. It should fail with the three field result, not with an import error or a typo. If it goes green, or breaks for an unrelated reason, fix the test before touching the splitter.
+5. **Fix minimally.** Change the splitter just enough to respect quotes, without breaking the cases its other callers rely on.
+6. **Watch it pass.** Rerun the test, then the tests around it.
+7. **Tidy.** With everything green, clean up names or duplication you introduced. Rerun after each edit. Stop when it reads clearly, and do not expand into unrelated code.
 
-1. State the intended behavior, the current behavior, and the smallest input that shows the gap.
-2. Pick the narrowest test file the project already uses for that code path.
-3. Write one focused test. It asserts what a caller or user can observe. Return values, output, stored data, visible state. Not private calls or call order. See [test-behavior-not-implementation](../poteto-mode/references/principles/test-behavior-not-implementation.md).
-4. Run it. Confirm it fails, and fails for the reason you expect. If it passes, or fails for another reason, fix the test before touching production code.
+## Hard rules
 
-## Green
+- Intermittent bug? Take the randomness or timing out of the test, and say which signal it now pins.
+- Spot related cases? Mention them in the reply. This test lands alone first.
+- Each test covers the one behavior it names. Extra coverage belongs in its own test.
+- When code and test disagree about correct behavior, the code changes. The expectation stays.
+- An existing assertion gets looser only if the intended behavior really changed. Explain the change when it does.
 
-5. Make the smallest production change that gives the intended behavior and keeps nearby contracts.
-6. Run the test again. Confirm it passes. Run the nearby tests too.
-
-## Refactor
-
-7. With the test green, simplify the code you touched. Remove duplication and awkward names you introduced.
-8. Run the tests after each change. Stop when the code is clear. Do not widen the scope.
-
-## Guardrails
-
-- Never change a test to match wrong behavior.
-- Never weaken an existing assertion unless the expected behavior truly changed. Say why when it did.
-- Keep the test about this behavior. No unrelated coverage.
-- For a flaky bug, make the test deterministic and say what signal it locks down.
-- If the bug belongs to a wider class, land the focused test first. Then mention sibling cases worth covering.
-
-**Reply.** The test or check you used, the failure it showed before the change (with the command and output), the passing run after, and other tests you ran. If you skipped the test, say why and what you used instead.
+**Reply.** Which test or check you used, its failure before the change with the command and output, its pass after, and any other tests you ran. If you skipped the test, explain why and name the check you used instead.

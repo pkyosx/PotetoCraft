@@ -2,15 +2,17 @@
 
 **Apply when** you debug.
 
-Fix the place where the system first went wrong, not the place where the problem showed up.
-Reproduce the failure before you change anything.
-Keep asking why. Stop only when you reach code that made a bad choice on its own, rather than reacting to an upstream error.
-When stuck, add instrumentation. Read the real error and the real state instead of guessing.
-Ask whether the state that triggered the failure is legitimate. If it is, the code that broke on it needs to handle it. If it should never exist, find what produced it.
-A bug is usually masked, not fixed, by a guard, a retry, a caught and ignored error, a clamp on a value, or state that gets thrown away.
-When something breaks only after a restart, look at persisted state first, such as config, caches, lock files, and saved state.
-Look for the same fault elsewhere and fix every instance.
-If a workaround needs a long comment to justify it, fix the code instead.
-If the key fact took a long dig to find, propose a cheap signal that would have shown it right away.
+Scenario. A CLI crashes with "cannot read property 'theme'" after an upgrade. Defaulting `theme` where it crashed would stop the crash. The real question is why the settings object lacks `theme`. Maybe the upgrade's migration skipped old files. That migration is where the fix goes.
 
-You followed this when you can name the first wrong step and show the failing reproduction pass after the fix, per [prove-it-works](prove-it-works.md).
+**Smells of a symptom patch.** A new null check, a retry, a `catch` that logs and moves on, a value forced into range, or state quietly reset. Each can be right, but each can also bury the fault. A patch that needs a long comment to defend it is almost always in the wrong place.
+
+**Getting to the cause:**
+- Make it fail on demand before you edit anything.
+- Look at the real error text and the real values. Add logging or a breakpoint instead of reasoning from memory.
+- Walk the bad value backward, caller by caller, until you hit code that went wrong given correct inputs.
+- Decide whether the triggering state is allowed. Allowed means the code that crashed must handle it. Not allowed means you fix whatever produced it.
+- If the failure shows up only after a restart, check what persists between runs first, such as settings files, cache folders, lock files, or saved sessions.
+
+**After the fix.** Search the codebase for the same mistake and fix every copy. If the cause was hard to find, suggest one cheap signal, such as a log line or an assertion, that would have pointed straight at it.
+
+You followed this when you can name the first wrong step and show the reproduction failing before your change and passing after it, per [prove-it-works](prove-it-works.md).

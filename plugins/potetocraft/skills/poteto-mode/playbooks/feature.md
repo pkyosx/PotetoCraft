@@ -1,14 +1,14 @@
 # Feature
 
-You own the design. Delegate code-writing when it helps, and review every result.
+You own the design. Others may write code for you, and you check all of it.
 
-1. Name the data shape first. Pick the structure that holds it (`../references/principles/model-the-domain.md`): a state machine over loose booleans, a table over a chain of branches, a typed model over repeated shape assumptions.
-2. Read the affected code with the **explain** skill (`../../explain/SKILL.md`) so the change fits what exists.
-3. If the code crosses a function boundary, run the **design** skill (`../../design/SKILL.md`) before you implement.
-4. Split the work into verifiable units (`../references/principles/sequence-verifiable-units.md`). Note which units are independent and which share files or state. Shared writes run one at a time.
-5. Delegate each unit with a specific brief: file paths, the data shape, success criteria, and the absolute path to `../SKILL.md`.
-6. Review each diff yourself. Check it against the brief and the principles you applied.
-7. Verify each unit on the real surface before starting the next (`../references/principles/prove-it-works.md`). An inconclusive or wrong-surface result is not a pass; flag it.
+1. Learn the area first with the **explain** skill (`../../explain/SKILL.md`), so the new code matches what is there.
+2. Decide how the data is shaped before any logic (`../references/principles/model-the-domain.md`). Prefer one status field to several flags, a lookup table to a long branch chain, and a named type to the same shape guessed in many places.
+3. When the change reaches past one function, use the **design** skill (`../../design/SKILL.md`) before writing code.
+4. Break the work into units you can check one by one (`../references/principles/sequence-verifiable-units.md`). Mark which units stand alone and which touch the same files or state. Units that write the same thing go in sequence.
+5. Brief each delegate precisely. Give file paths, the data shape, what success looks like, and the absolute path to `../SKILL.md`.
+6. Read every returned diff against its brief and against the principles you used.
+7. Exercise each unit where users meet it before you start the next one (`../references/principles/prove-it-works.md`). An unclear result, or one from the wrong surface, counts as unproven. Say so.
 8. Run the hand-off playbook (`hand-off.md`).
 
-**Reply:** what you built, the data shape, the choices you made and why, how you verified each unit, and open decisions. Use a table for design alternatives.
+**Reply:** what now exists, its data shape, each decision with its reason, the check for each unit, and decisions still open. Put competing designs in a table.

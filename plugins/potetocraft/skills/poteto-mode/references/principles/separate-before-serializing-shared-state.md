@@ -1,14 +1,17 @@
 # Separate Before Serializing Shared State
 
-**Apply when** more than one process, agent, or worker could change one shared file, branch, key, or state object at the same time.
+**Apply when** several processes, agents, or workers might write to one shared branch, key, file, or state record at once.
 
-First ask whether the actors really need the same writable object.
-Usually they are each publishing their own facts. Give each actor its own file, key, or directory, and combine the results only where they are read.
-Two workers writing different fields into one shared state file still share it. Two separate state files do not.
-Only when one shared target is a real requirement, enforce order with structure. Use a lock file, sequential phases, a single owner that does all writes, or an atomic compare-and-swap.
-A written instruction or a team convention is not concurrency control.
-Treat "we need a lock" as a sign to recheck the design, not as the default answer.
+When two writers collide, the first question is not "which lock?" It is "why do they share a target?"
 
-You broke this when a bug appears only sometimes and two actors touch the same object.
-You followed it when each writable object has exactly one writer, or the shared one is guarded by a mechanism the code enforces.
-Races are hard to reproduce, so prefer designs where they cannot happen at all.
+Example. Four build agents each append a result to `status.json`. Sometimes a result vanishes. The fix is not a lock around the file. Give each agent its own `status-<agent>.json` and let the reader merge them. No two writers ever touch the same bytes.
+
+Check yourself:
+- Writing different keys into the same file still counts as sharing the file.
+- Writing separate files does not.
+
+Only if one shared target is truly required should you serialize access. Use something the code enforces, such as a lock file, a single writer process, phases that run one after another, or an atomic compare and swap. A comment saying "only one at a time please" enforces nothing.
+
+Intermittent bugs that involve two actors and one object are the classic sign this was missed. Since races rarely reproduce on demand, a design where they cannot happen is worth more than a careful guard.
+
+You are done when every writable object has exactly one writer, or the shared one sits behind a mechanism the code itself enforces.

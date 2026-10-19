@@ -1,15 +1,14 @@
 # Guard the Context Window
 
-**Apply when** your context is filling up with large outputs, long files, repeated reads, or plans for many parallel tasks.
+**Apply when** big command output, long files, rereads, or a plan with many parallel tasks start to crowd your context.
 
-An overfull context makes reasoning worse, loses detail when it gets compressed, and can stop the work.
-Send bulk work to subagents. Give each one a narrow question and ask for a short summary back.
-Keep summaries, decisions, and file paths in the main thread, not raw logs or whole files.
-Read the part of a file you need, not the whole file. Search before you read.
-Cap the output of commands, for example by filtering or taking only the tail, and save the full output to a scratch file you can search later.
-Do not read the same large file twice. Write down what you learned the first time.
-Size each phase of the work so it fits, and plan the next phase before the context is nearly full.
-See the Subagents section of [the poteto-mode skill](../../SKILL.md) for how to spawn them.
+Your context is a budget. Spending it on raw output makes later reasoning worse, loses detail when the history is compressed, and can halt the session.
 
-You broke this when a full test log or a whole generated file sits in the main thread.
-You followed it when the main thread holds only what you need to decide the next step.
+Habits that keep it lean:
+- **Search, then read a slice.** Use grep or a symbol search to find the lines, then open only that range.
+- **Trim command output.** Pipe through `tail`, `grep`, or a line limit. Write the full output to a scratch file so you can search it later.
+- **Take notes once.** After reading a big file, write down the facts you need so you never open it again.
+- **Delegate bulky reading.** Give a subagent one narrow question and ask for a few lines back. [The poteto-mode skill](../../SKILL.md) explains spawning under its Subagents heading.
+- **Plan in chunks.** Size each phase so it fits, and write the next phase's plan while room remains.
+
+What belongs in the main thread is decisions, file paths, and short summaries. A full test log or a generated file pasted there is the mistake this principle exists to stop.

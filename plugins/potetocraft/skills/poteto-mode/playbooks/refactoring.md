@@ -1,14 +1,14 @@
 # Refactoring
 
-You own the contract. The structure changes and the behavior does not. If you find a bug or a missing feature, note it and handle it in a separate Bug fix or Feature run.
+The behavior stays fixed and only the structure moves. That promise is yours to keep. A bug or a missing feature you notice goes in the notes for its own Bug fix or Feature run.
 
-1. Pin current behavior before moving anything. Use existing tests, or write a characterization test, snapshot, or output-diff script. A passing type check or lint is not a pin.
-2. Record the before evidence: the pin passing on the old code, with its output.
-3. Name the target shape: modules, types, and call graph as you would build them today. Run the **design** skill (`../../design/SKILL.md`) if it crosses a function boundary.
-4. Subtract first (`../references/principles/subtract-before-you-add.md`). Remove dead code and one-caller wrappers before adding the new shape.
-5. Move in small steps. Keep the pin green after each one. When an API changes, move every caller and remove the old API in the same pass (`../references/principles/migrate-callers-then-delete-legacy-apis.md`). Search strings and docs for missed renames.
-6. Record the after evidence: the same pin passing on the new code, plus an output diff for larger reshapes.
-7. Check the result reads easier (`../references/principles/minimize-reader-load.md`). If it does not, revert it.
+1. Lock down today's behavior before you move code. Existing tests can do it. So can a new test that records current outputs, a snapshot, or a script that diffs output. Type checks and lint do not lock behavior.
+2. Run that lock on the untouched code and save the output as the before evidence.
+3. Describe where the code should end up, its modules, types, and who calls whom, as if you were writing it fresh. Use the **design** skill (`../../design/SKILL.md`) when the change reaches past one function.
+4. Clear space first (`../references/principles/subtract-before-you-add.md`). Take out unused code and single-caller wrappers before the new structure goes in.
+5. Take small steps, and rerun the lock after each. If an API changes, move all of its callers and drop the old API during this pass (`../references/principles/migrate-callers-then-delete-legacy-apis.md`). Search string literals and docs for names you missed.
+6. Run the lock on the finished code and save that output as the after evidence. For a large reshape, add an output diff.
+7. Confirm a newcomer would find the result easier to read (`../references/principles/minimize-reader-load.md`). If not, undo your own edits from this run. Never discard changes you did not make.
 8. Run the hand-off playbook (`hand-off.md`).
 
-**Reply:** what structure changed, the pin, the before and after evidence, the reader-load gain, and anything you reverted. No new behavior.
+**Reply:** the structural change, the lock you used, before and after evidence, how reading got easier, and anything you backed out. No behavior changes.

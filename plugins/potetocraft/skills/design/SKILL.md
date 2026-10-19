@@ -1,83 +1,74 @@
 ---
 name: design
-description: Sketch data shapes, types, signatures, and module boundaries before writing code, compare options when there is no precedent, and keep the design honest while the code fills in. Use for "design this", "how should we structure this", "sketch the shape first", or any sizable change where coding first would fix a poor structure in place.
+description: Sketch data shapes, types, signatures, and module boundaries before writing code, compare options when there is no precedent, and keep the design honest while the code fills in. Use for "design this", "how should we structure this", "sketch the shape first", or any sizable change where writing code first would lock in a weak structure.
 ---
 
 # Design
 
-Decide the shape before the code. A sketch is cheap to change. Code built on the wrong shape is not.
+Settle the structure while it is still a page of stubs. Rewriting a sketch takes minutes. Unwinding code that grew on a bad structure takes days.
 
-Track the phases with a todo list (TodoWrite in Claude Code, or the equivalent in your harness).
+Keep the phases below in your harness's todo tool (TodoWrite in Claude Code) or in the reply.
 
-## 1. Ground
+## Learn the terrain
 
-Learn every system the new code touches. Use the How mode of the **explain** skill ([../explain/SKILL.md](../explain/SKILL.md)) on each one. If the design moves ownership or layering, also use its Why mode so the old reasons become constraints, not guesses.
+For each existing system the work will touch, use the How mode of the **explain** skill ([../explain/SKILL.md](../explain/SKILL.md)). When the design shifts who owns what, or moves logic between layers, add its Why mode too, so past reasons turn into known constraints instead of guesses. Only fully greenfield code with no neighbors can skip this.
 
-Skip this only for greenfield code with nothing around it.
+## Write it from the outside in
 
-## 2. Sketch
+1. **Call sites.** Write two or three realistic snippets of code that use the new thing. What do they import, what do they call, what do they get back? Everything else follows from these. If a later piece of the sketch makes these snippets awkward, change the sketch, not the snippets.
+2. **Data.** The records, the states they move through, and the rules that always hold. Where the language allows, make a broken state unrepresentable. See [model-the-domain](../poteto-mode/references/principles/model-the-domain.md).
+3. **Signatures.** Public functions and methods, with stub bodies such as `throw new Error("todo")` or pseudocode.
+4. **Ownership.** Which module holds which state and makes which decisions, and where raw outside input becomes trusted domain types. See [boundary-discipline](../poteto-mode/references/principles/boundary-discipline.md).
 
-Write the caller's view first. Show what a caller imports, what it calls, and what comes back, in two or three realistic call sites. Derive everything else from that. When the sketch and the usage disagree, fix the sketch.
+A small change fits in one file. Larger work needs a module map and the key types, not more.
 
-Then sketch, in this order:
+## Look for alternatives
 
-1. **Data shapes.** The records, states, and invariants. Make illegal states impossible to write where the language allows it. See [model-the-domain](../poteto-mode/references/principles/model-the-domain.md).
-2. **Types and signatures.** Public functions and methods with bodies left as `not implemented` or pseudocode.
-3. **Module boundaries.** Which module owns which state and which decisions. Where outside data is parsed into domain types. See [boundary-discipline](../poteto-mode/references/principles/boundary-discipline.md).
+If the codebase has already solved a problem like this, reuse that approach and name the file you took it from.
 
-Keep the sketch small. One file for a small change. A module map plus types for larger work.
+If it has not, draft two or three options that differ in their overall structure, for example an event log versus a mutable record versus a pair of tables. Give each one line of benefit and one line of cost. Lean toward the option that keeps the most behavior behind the smallest public surface. See [exhaust-the-design-space](../poteto-mode/references/principles/exhaust-the-design-space.md).
 
-## 3. Options
+## Stress test each option
 
-If the repo already solves this kind of problem, follow that precedent and say which file it comes from.
+Assume whoever touches this next is an agent that opens three files, copies the nearest example, and stops once tests pass. A strong design makes that habit produce correct code. Ask of every option:
 
-If there is no precedent, sketch two or three structurally different options. Different whole shapes, not small variations of one. For each, give one line on what it gets right and one line on what it costs. Prefer the option that hides the most behind the smallest public surface. See [exhaust-the-design-space](../poteto-mode/references/principles/exhaust-the-design-space.md).
+- Could someone outside the module import its private parts? Make that fail to build.
+- Can a caller reach the same result by two different routes? Both routes will keep spreading.
+- Do two modules both write, or both cache, the same state?
+- Does a storage format, wire shape, or business rule appear in several modules, so one change means several edits?
+- Must a caller call three methods in the right order to do one thing? The interface is too thin for its behavior.
+- Are modules cut by phase, such as fetch, validate, write, each repeating the same knowledge? Cut by what they know instead.
+- Does any layer just forward its arguments unchanged?
+- Is the same list of items kept by hand in several files? Derive them from one, or fail the build when they drift.
 
-## 4. Check red flags
+Fix or drop an option that fails any of these.
 
-Picture the next contributor as an agent with a narrow view. It reads a few files, imitates whatever code sits closest, and stops at the first version that builds. A good design makes the change that looks right from one file correct for the whole repo. Revise or reject an option that shows any of these.
+## Write it up and decide
 
-- **Shallow module.** A wide interface over little behavior. Callers must call several methods in order to finish one task.
-- **Leaked decision.** A storage format, wire type, or policy appears in more than one module, so a change needs edits in several places.
-- **Split by time.** Separate load, check, change, and save modules that each repeat the same knowledge. Group by what a module knows, not when it runs.
-- **Pass-through layer.** A method that forwards the same arguments to another method and adds nothing.
-- **Shared ownership.** Two modules write the same state or keep their own copy.
-- **Two ways to do one task.** Agents copy whichever they find first, so both keep growing.
-- **Reachable internals.** Outside code can import a module's private parts. Make that import fail.
-- **Hand-synced lists.** The same items listed in several places. Keep one list and derive the rest, or make the build fail when they disagree.
+The design note has these parts:
+- **Problem.** The goal and what makes its shape hard, including the constraints you found while learning the terrain.
+- **Usage.** The call site snippets.
+- **Shape.** Data, then signatures, then ownership. Which rules the types enforce, where input is validated, and what is out of scope on purpose.
+- **Options.** Each one with its benefit and cost, and why the others lost. If only one shape worked, explain why.
+- **Accepted tradeoffs.** One line each in the form "we give up X to get Y."
+- **Open questions.** Worded so the user can answer them.
+- **Recommendation.** Your choice and the first piece you would build.
 
-## 5. Present and decide
+When the decision is a product call or a costly architecture call, such as a public API, a data model, or ownership between modules, present the note and wait for the user to choose. Ask only what the code cannot answer. See [ask-only-what-only-the-human-can-answer](../poteto-mode/references/principles/ask-only-what-only-the-human-can-answer.md). When the decision is local and easy to reverse, state your choice and reason and keep going.
 
-Write the design up with these parts.
+## Build to the sketch
 
-- **Problem.** What we are doing and what makes the shape non-obvious. Name the constraints from step 1.
-- **Usage.** The caller's view from step 2.
-- **Shape.** Data first, then signatures, then boundaries. Which invariants live in types and where validation happens. What the design deliberately does not do.
-- **Options.** Each option from step 3 with its gain and its cost, and why the losers lost. If only one shape fit, say why.
-- **Tradeoffs accepted.** One line each, written as "we accept X to get Y."
-- **Open questions.** Phrased as questions the user can answer.
-- **Recommendation.** Your pick and the first thing you would build.
+Fill the stubs with real code. The agreed sketch is the contract. If the code wants something the sketch never planned, such as an extra parameter or a special bypass, pause and work out which one is mistaken. It could be the sketch, the requirement, or the code. Update the design when the code proves it wrong, and tell the user whenever the update touches something they chose.
 
-If the choice is a product call or an architecture call (public API, data model, ownership between modules, anything costly to reverse), present the design and wait for the user to choose. Ask only what the code cannot settle. See [ask-only-what-only-the-human-can-answer](../poteto-mode/references/principles/ask-only-what-only-the-human-can-answer.md).
+## Know when to start over
 
-If the choice is local and cheap to reverse, state the pick and the reason, then continue.
+A single clumsy case is normal. A recurring pattern means the shape is wrong. Signs include:
+- the same workaround in places that have nothing to do with each other
+- one special branch after another for unrelated edge cases
+- casts, `any`, or optional fields that are always filled, just to compile
+- a lock showing up in state the sketch said nobody shares
+- callers that need to understand the module's internal rules
 
-## 6. Build against the sketch
+Then return to the terrain step with the new facts and design as though you had known them from the start. Cut the sketch smaller than before, and only then let it grow. See [redesign-from-first-principles](../poteto-mode/references/principles/redesign-from-first-principles.md) and [subtract-before-you-add](../poteto-mode/references/principles/subtract-before-you-add.md). Show the user the new design before building more.
 
-Replace `not implemented` bodies with real code. The agreed sketch is the contract. When the code needs something the sketch did not plan, such as a new parameter or an escape hatch, stop and ask which is wrong. The sketch, the requirement, or the code.
-
-Revise the design when the code disagrees with it. Tell the user what changed and why when the change touches anything they chose in step 5.
-
-## 7. Redesign when the shape is wrong
-
-One awkward case does not condemn a design. A pattern does. Watch for these.
-
-- The same workaround showing up in unrelated places.
-- Many unrelated edge cases that each need a special branch.
-- Types that need casts, `any`, or always-set optional fields to compile.
-- A lock appearing where the sketch said state was not shared.
-- Callers needing to know the module's internal rules.
-
-When you see a pattern, go back to step 1 with what you learned. Redesign as if the new facts were known on day one. Shrink the sketch below its old size first, and only then let it expand. See [redesign-from-first-principles](../poteto-mode/references/principles/redesign-from-first-principles.md) and [subtract-before-you-add](../poteto-mode/references/principles/subtract-before-you-add.md). Present the new design to the user before building further.
-
-**Reply.** The design write-up from step 5 with the recommendation, then, once building starts, each deviation from the sketch and how the design changed.
+**Reply.** The design note with its recommendation. Once building starts, also list each place the code departed from the sketch and how the design changed.

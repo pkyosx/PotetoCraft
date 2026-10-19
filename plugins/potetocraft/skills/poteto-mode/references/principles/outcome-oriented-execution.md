@@ -7,7 +7,7 @@ Compatibility code written only to keep a midpoint stable tends to stay forever.
 Say up front where temporary breakage is allowed and where it is not.
 Keep fast, high-signal checks running on the areas you are actively touching.
 At the end, run the full static and runtime checks and show they pass.
-Breakage in the middle is fine only when it is planned, scoped, and easy to undo.
+A temporarily broken middle state is acceptable if you chose it on purpose, kept it small, and can back it out.
 
 You broke this when the work ships shims, adapters, or dual code paths that exist only for the transition.
 You broke it in the other direction when breakage spreads to areas the plan did not name.

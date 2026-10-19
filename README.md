@@ -8,7 +8,7 @@ PotetoCraft is a plugin for coding agents (Claude Code and Codex). It gives the 
 
 ### A tribute to pstack
 
-PotetoCraft is inspired by [pstack](https://github.com/cursor/plugins/tree/main/pstack), the workflow plugin by [poteto](https://github.com/poteto) (Lauren Tan), released under the MIT license. pstack showed that an agent goes faster when it goes deep first: name the data shape, read before changing, prove the work, and write plainly. PotetoCraft keeps that way of working and rewrites it in our own words for a narrower set of guardrails. Every file here is new text. Thank you, poteto.
+PotetoCraft is inspired by [pstack](https://github.com/cursor/plugins/tree/main/pstack), the workflow plugin by [poteto](https://github.com/poteto) (Lauren Tan), released under the MIT license. pstack showed that an agent goes faster when it goes deep first: name the data shape, read before changing, prove the work, and write plainly. PotetoCraft keeps that way of working and rewrites it in our own words for a narrower set of guardrails. pstack's license notice is kept in [NOTICE](NOTICE). Thank you, poteto.
 
 What PotetoCraft changes from pstack:
 
@@ -52,7 +52,7 @@ To pin a version, add the marketplace at a tag or commit (`--ref <tag>` for Code
 
 ### License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE). pstack attribution is in [NOTICE](NOTICE).
 
 ## 繁體中文
 
@@ -60,7 +60,7 @@ PotetoCraft 是給程式開發 agent（Claude Code 與 Codex）使用的外掛�
 
 ### 向 pstack 致敬
 
-PotetoCraft 參考了 [poteto](https://github.com/poteto)（Lauren Tan）的工作流程外掛 [pstack](https://github.com/cursor/plugins/tree/main/pstack)（MIT 授權）。pstack 的核心想法是「想走得快，先走得深」：先定資料結構、先讀懂再修改、證明成果真的可行、用平實的文字寫作。PotetoCraft 保留這套工作方式，並依照較嚴格的使用規範，用我們自己的文字重新撰寫；這個 repo 裡的每個檔案都是新寫的內容。謝謝 poteto。
+PotetoCraft 參考了 [poteto](https://github.com/poteto)（Lauren Tan）的工作流程外掛 [pstack](https://github.com/cursor/plugins/tree/main/pstack)（MIT 授權）。pstack 的核心想法是「想走得快，先走得深」：先定資料結構、先讀懂再修改、證明成果真的可行、用平實的文字寫作。PotetoCraft 保留這套工作方式，並依照較嚴格的使用規範，用我們自己的文字重新撰寫；pstack 的授權聲明保留在 [NOTICE](NOTICE)。謝謝 poteto。
 
 PotetoCraft 和 pstack 的差異：
 
@@ -104,4 +104,4 @@ codex plugin add potetocraft@potetocraft
 
 ### 授權
 
-MIT，見 [LICENSE](LICENSE)。
+MIT，見 [LICENSE](LICENSE)。pstack 的授權聲明見 [NOTICE](NOTICE)。
