@@ -1,0 +1,13 @@
+{
+  "name": "potetocraft",
+  "version": "0.1.0",
+  "description": "Classify the work, follow a playbook, keep a todo list, and verify against the real artifact before reporting. Inspired by pstack.",
+  "author": {
+    "name": "pkyosx",
+    "url": "https://github.com/pkyosx"
+  },
+  "homepage": "https://github.com/pkyosx/PotetoCraft",
+  "repository": "https://github.com/pkyosx/PotetoCraft",
+  "license": "MIT",
+  "keywords": ["workflow", "code-review", "verification", "principles", "subagents"]
+}
