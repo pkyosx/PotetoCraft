@@ -4,15 +4,15 @@
 
 Scenario. A flaky upload test fails. You raise the timeout, and it still fails. You add a retry, and it still fails. Both fixes assumed "the server is slow." Two misses in a row say more about that assumption than about either fix.
 
-So stop fixing and test the assumption:
-1. State it in one sentence, the thing every attempt took for granted.
-2. Choose an observation whose outcome depends on whether the sentence is true. In the scenario, log the server response time on each failing run.
-3. Look at the pattern of failures, not just their size. Do they cluster on one file type, one machine, one time of day?
-4. Save the check as a script so you can run it again, per [build-the-lever](build-the-lever.md).
+Stop fixing. Put the belief on trial instead.
 
-Then follow the evidence:
-- **The belief is false.** Ask what the failing cases have in common that the belief never accounted for.
-- **The belief holds.** Your fixes treated a symptom. Keep tracing back, per [fix-root-causes](fix-root-causes.md).
-- **The cause is a condition you can remove.** Remove it rather than adding code that works around it, per [laziness-protocol](laziness-protocol.md).
+**The charge.** Write the belief in one sentence. In the scenario, "uploads fail because the server responds slowly."
+
+**The evidence.** Pick a measurement that would read differently if the sentence were false. Here, log the server's response time on every failing run. Then sort the failures by what they share, such as file type, machine, or time of day. A cluster often tells you more than an average. Keep the check as a script so it can run again, per [build-the-lever](build-the-lever.md).
+
+**The verdict.**
+- **Something you can take away caused it.** Take it away instead of writing code that copes with it, per [laziness-protocol](laziness-protocol.md).
+- **The belief was wrong.** The failing runs share something it never mentioned. Find that.
+- **The belief was right.** The fixes so far were aimed at a consequence. Trace one step further back, per [fix-root-causes](fix-root-causes.md).
 
 Before any third attempt, the report should show the belief in writing and the observation that confirmed or broke it.

@@ -6,7 +6,7 @@ For local work you can undo, such as reading code, running tests, running the ap
 When a command or test could reveal the answer, run it and skip the question.
 Ask the user only for product or preference calls that no experiment can settle.
 Always stop before outward actions. These are commit, push, opening or updating a PR, merge, posting comments or replies, sending messages, and creating or editing tickets.
-Always stop before deleting files, folders, branches, worktrees, or caches.
+Always stop before deleting files, folders, branches, worktrees, or caches. The one exception is a file that the code change the user asked for removes, such as dead code or an obsolete test.
 For those, prepare the draft, such as the commit message, the PR description, or the comment text, report it, and wait for the user to say go.
 When you do ask, give your recommendation and the tradeoff, so the answer takes one word.
 

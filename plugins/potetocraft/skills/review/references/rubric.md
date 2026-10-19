@@ -5,11 +5,11 @@ Checks for each lens in the review skill. Use only the lenses the change calls f
 ## Correctness
 
 Ask these, and show the call path for any "yes":
-- What does it do with nothing, with one item, at the limit, with a huge input, with odd characters such as emoji or a byte order mark?
-- When a call fails, does the error surface, travel up, or vanish silently?
+- Kill the process halfway through, then start it again. Does it land where a clean run would? If the answer is "it depends what the first run left behind", say what step should have tidied that up.
+- Pick a failing call in the change. Follow the error. Does the user see it, does a caller handle it, or does it disappear?
+- Feed it an empty list, a single item, the largest allowed value, a very large input, and text with emoji or a byte order mark.
+- Where several workers share data, what makes them take turns? Code that enforces it counts. A comment asking nicely does not.
 - Can two things race? Can a callback hold an old value, or keep a reference after its owner is gone?
-- Run it twice, or kill it halfway and run it again. Same result? If that depends on leftovers, the change lacks a reconcile step.
-- If several workers touch one piece of data, is ordering enforced by code or only by a convention?
 
 Example of the bar. "`user.email` may be undefined" becomes a finding only when you name the caller that passes a user without one.
 
@@ -25,12 +25,12 @@ For every risk, give an honest likelihood and cost. An empty search result is a 
 
 ## Design and premise
 
-- Is the root cause fixed, or is a symptom muted? Watch for a guard over a broken invariant, a retry over a broken contract, or a cast over a modeling mistake.
-- Does the fix live in the module that owns the problem? A patch in the caller may really belong in the callee's contract.
-- Would someone who knew this requirement from the start have written it this way? If not, it was bolted on.
-- Does it introduce a second way to do something, or keep an old path alive that nobody outside uses?
-- Does correctness depend on someone remembering a rule that a type, check, or test could enforce?
 - Is there a framing that would shrink the change or make it unneeded? See [attack-the-premise](../../poteto-mode/references/principles/attack-the-premise.md).
+- Does the code stay correct only while people remember a rule? If a type, check, or test could hold that rule, say which.
+- Did the fault get fixed, or did its noise get turned down? A `try` that logs and returns a default, or a `sleep` added before a flaky read, usually means the second.
+- Would an author who had this requirement on day one have built it like this? A different answer means it was bolted on.
+- Is the change made where the problem lives? A workaround in the caller often marks a gap in the callee's contract.
+- Does a second route to the same result now exist, or does an old route survive with no outside users?
 
 ## Code quality
 
@@ -49,9 +49,9 @@ Do not request an abstraction for a single caller. Some duplication is cheaper t
 See [test-behavior-not-implementation](../../poteto-mode/references/principles/test-behavior-not-implementation.md).
 - Assertions target what callers or users observe, not private calls, call order, or mock wiring.
 - Break the behavior on purpose in your head. The test should fail. Restructure the internals. It should still pass.
-- A bug fix comes with a test that fails without the fix.
-- A change at an integration boundary is exercised end to end at least once.
 - Assertions read the real value, not a timestamp or cached copy standing in for it.
+- Where the change crosses into another system, at least one test runs the whole trip.
+- Revert the fix in your head. A bug fix's test should go red when you do.
 
 ## Comments
 

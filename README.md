@@ -26,9 +26,9 @@ What PotetoCraft changes from pstack:
 | `explain` | you or the agent | Explains how code works and why it is that way, from the code and local git history. |
 | `design` | you or the agent | Sketches data shapes, types, and module boundaries before code, with options and tradeoffs. |
 | `tdd` | you or the agent | Red, green, refactor when a cheap test target exists. |
-| `sharpen` | you type it | Restates the goal and approach before any work starts. |
-| `catch-up` | you type it | Summarizes what changed and lists what is waiting on you. |
-| `correct` | you type it | Finds mistakes agents keep repeating in a repo and proposes structural fixes in the working tree. |
+| `sharpen` | you, or poteto-mode | Restates the goal and approach before any work starts. |
+| `catch-up` | you, or poteto-mode | Summarizes what changed and lists what is waiting on you. |
+| `correct` | you, or poteto-mode | Finds mistakes agents keep repeating in a repo and proposes structural fixes in the working tree. |
 
 In Claude Code the skills carry the plugin prefix, for example `/potetocraft:poteto-mode`.
 
@@ -78,9 +78,9 @@ PotetoCraft 和 pstack 的差異：
 | `explain` | 你或 agent | 從程式碼與本機 git 歷史，說明程式怎麼運作、為什麼這樣設計。 |
 | `design` | 你或 agent | 寫程式前先畫出資料結構、型別與模組邊界，列出選項與取捨。 |
 | `tdd` | 你或 agent | 有便宜的測試目標時，依紅、綠、重構的順序開發。 |
-| `sharpen` | 由你輸入 | 開工前先用自己的話重述目標與做法。 |
-| `catch-up` | 由你輸入 | 整理目前的進度，列出等你決定的事項。 |
-| `correct` | 由你輸入 | 找出 agent 在 repo 裡反覆犯的錯，在工作目錄提出結構性的修正。 |
+| `sharpen` | 你，或由 poteto-mode 引導 | 開工前先用自己的話重述目標與做法。 |
+| `catch-up` | 你，或由 poteto-mode 引導 | 整理目前的進度，列出等你決定的事項。 |
+| `correct` | 你，或由 poteto-mode 引導 | 找出 agent 在 repo 裡反覆犯的錯，在工作目錄提出結構性的修正。 |
 
 在 Claude Code 中，skill 名稱會帶外掛前綴，例如 `/potetocraft:poteto-mode`。
 

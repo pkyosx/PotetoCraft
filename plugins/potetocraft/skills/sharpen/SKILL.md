@@ -18,9 +18,9 @@ Make sure you are solving the right problem before you start. This turn produces
 
 - **What you are after.** The goal in your own words, in one or two sentences. Not a copy of the request.
 - **Why.** The problem behind the request. What gets better for the user or their users when it is done.
-- **How an expert would do it.** The sources they would go to first, the method they would use, and the outside check that would show the result is right.
+- **How an expert would do it.** Picture someone who has done this many times. Where would they look before touching anything, how would they go about it, and what independent test would convince them it worked?
 - **Specification.** Whether the request is over-specified, under-specified, or about right. Name any constraint that does not serve the goal and could be loosened. Name any missing constraint the goal needs.
 - **Assumptions.** Each thing you would take as given if you started now. One line each.
 - **Open questions.** Only the ones the user alone can answer, such as product choices, preferences, priorities, and access. Leave out anything you could find out by reading or running code. Give your default answer for each.
 
-Keep it short. Follow [writing.md](../poteto-mode/references/writing.md). Do not narrate the framing and do not start the task.
+Keep it short. Follow [writing.md](../poteto-mode/references/writing.md). The headings above are enough structure, so skip any preamble about what you are doing. Do not start the task.

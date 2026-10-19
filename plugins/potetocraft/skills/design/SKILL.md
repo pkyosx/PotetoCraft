@@ -30,7 +30,7 @@ If it has not, draft two or three options that differ in their overall structure
 
 ## Stress test each option
 
-Assume whoever touches this next is an agent that opens three files, copies the nearest example, and stops once tests pass. A strong design makes that habit produce correct code. Ask of every option:
+Picture the next change to this code six months out, made in a hurry by someone who reads one module and imitates it. Which option still ends up correct after that edit? Ask of every option:
 
 - Could someone outside the module import its private parts? Make that fail to build.
 - Can a caller reach the same result by two different routes? Both routes will keep spreading.
@@ -58,17 +58,14 @@ When the decision is a product call or a costly architecture call, such as a pub
 
 ## Build to the sketch
 
-Fill the stubs with real code. The agreed sketch is the contract. If the code wants something the sketch never planned, such as an extra parameter or a special bypass, pause and work out which one is mistaken. It could be the sketch, the requirement, or the code. Update the design when the code proves it wrong, and tell the user whenever the update touches something they chose.
+Fill the stubs with real code. The agreed sketch is the contract. When the code reaches for something the sketch never planned, such as an extra parameter or a special bypass, stop. Either the code is doing more than it should, or the plan missed a fact. Find out which before you continue. Update the design when the code proves it wrong, and tell the user whenever the update touches something they chose.
 
 ## Know when to start over
 
-A single clumsy case is normal. A recurring pattern means the shape is wrong. Signs include:
-- the same workaround in places that have nothing to do with each other
-- one special branch after another for unrelated edge cases
-- casts, `any`, or optional fields that are always filled, just to compile
-- a lock showing up in state the sketch said nobody shares
-- callers that need to understand the module's internal rules
+One awkward spot is ordinary. Watch instead for the moment the awkwardness starts to repeat. Two questions catch most of it:
+- **Is the outside leaking in?** Callers have to know the module's internal rules to use it. State you planned as private now needs a lock.
+- **Is the type system being argued with?** You keep adding casts or `any`, or marking fields optional that are never empty, so the build passes. The same patch shows up in unrelated files, or each new edge case gets its own branch.
 
-Then return to the terrain step with the new facts and design as though you had known them from the start. Cut the sketch smaller than before, and only then let it grow. See [redesign-from-first-principles](../poteto-mode/references/principles/redesign-from-first-principles.md) and [subtract-before-you-add](../poteto-mode/references/principles/subtract-before-you-add.md). Show the user the new design before building more.
+A yes to either means the shape is wrong. Go back to the terrain step carrying what you learned, and design as if it had been known on day one. The new sketch should start with fewer parts than the old one did. See [redesign-from-first-principles](../poteto-mode/references/principles/redesign-from-first-principles.md) and [subtract-before-you-add](../poteto-mode/references/principles/subtract-before-you-add.md). Show the user the new design before building more.
 
 **Reply.** The design note with its recommendation. Once building starts, also list each place the code departed from the sketch and how the design changed.

@@ -1,13 +1,13 @@
 # Prototype
 
-You own the decision, not the code. A prototype is a throwaway instrument. It settles an empirical question so you do not have to ask the user one. The real build follows the Feature playbook.
+Run this when an experiment can answer something you would otherwise ask the user. What you deliver is an answer. The scratch code that produced it is evidence, and it is never merged. If the answer leads to real work, that work starts over under the Feature playbook.
 
-1. State the one question the prototype answers (which layout, which approach, how fast, what the output looks like). No question means no prototype.
-2. Pick a scratch directory the session already provides, or one the user names. Keep it apart from production source.
-3. Build the smallest thing that answers the question. Use only tools already in the project or on the machine. Skip tests, abstractions, and polish.
-4. When comparing options, build each variant and label it so they can be compared side by side.
-5. Observe the result directly. Run it, print the output, time it, or capture a screenshot.
-6. Decide from the observation. Leave the scratch directory in place.
+1. Write down what you are trying to learn, as a question with a few possible answers. "Does the table stay readable at 500 rows?" or "Is approach A or B under 200 ms?" If you cannot phrase it that way, there is nothing to prototype.
+2. Use a scratch directory the session already provides, or one the user names. It stays outside production source.
+3. Write only what the question needs. No tests, no abstractions, no polish. Use tools already in the project or on the machine.
+4. If two or more approaches compete, give each its own clearly named folder or entry point so the results line up.
+5. Look at the real output. Run it, print it, time it, or take a screenshot.
+6. Let what you saw pick the answer. The scratch directory stays where it is.
 7. Run the hand-off playbook (`hand-off.md`).
 
-**Reply:** the question, the variants tried, what you observed, what you recommend, and the scratch path. State clearly that the prototype code is not meant to ship.
+**Reply:** your recommendation first, then the question it answers, what you saw for each approach, the scratch path, and a plain note that none of this code ships.

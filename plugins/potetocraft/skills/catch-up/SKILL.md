@@ -19,9 +19,9 @@ Their memory ends at their own last message. Anything after it, such as tool out
 
 ## Collect
 
-1. Your work since their last message, every subagent report, and any messages from other people in this conversation.
-2. The live state of each branch, PR, test run, and subagent involved.
-3. The decisions only the user can make. These are product or taste calls, approvals, anything that cannot be undone, and access you do not have. Carry over older ones that are still open. Leave out anything you could finish alone, and never make one up.
+Scroll back to the user's last message and read forward. Note what you did, what each subagent sent back, and anything other people wrote here. Then check where every branch, PR, test run, and subagent you touched stands right now.
+
+While reading, build the list for "Needs you." For each candidate, ask one question. Could I settle this myself with more time? If yes, it belongs in "Still on my plate." If no, because it needs their taste, their sign-off, their access, or a step that cannot be reversed, it goes on the list. Open items from earlier catch-ups that nobody answered go on it too. An item you cannot trace to something real does not.
 
 ## Fill this template
 
@@ -41,18 +41,18 @@ Still on my plate
 <One line on work you can keep doing without them.>
 
 Needs you
-- <Decision>. I suggest <option>. Effect for users. Evidence. Risk, even if small. PR link if any. Mark gaps "unknown".
-  (several items resting on one choice? State the choice once, then one bullet each, riskiest first)
-  (a pick between options? Give each option's upside and downside)
+- <Decision>. I suggest <option>. Effect for users. Evidence. Risk (write "low" rather than leaving it out). PR link if any. Mark gaps "unknown".
+  (if one answer settles several items, lead with that question and your answer, then list the items under it, most dangerous at the top)
+  (if they must choose between options, say what each one buys and what it gives up)
 ```
 
-If nothing happened and nothing needs them, the opening sentence is the whole reply.
+On a quiet stretch with no decisions, send just the opening line and stop.
 
-Do not trim or merge decisions to keep it short. More decisions means a longer reply, and that is fine.
+Length follows the number of decisions. Ten open decisions means ten bullets, each with its own facts.
 
 ## Diagrams
 
-Add one only if it beats a sentence, for example showing which PR depends on which, or how a flow looked before and after. Plain text or Mermaid. Keep it to a few labeled nodes in plain words. Statuses and decisions stay in the text above, not in the diagram. A table does not count as a diagram, and nothing should appear in both.
+Add one only if it beats a sentence, for example showing which PR depends on which, or how a flow looked before and after. Plain text or Mermaid. Keep it to a few labeled nodes in plain words. The diagram shows structure only. Status words and decisions live in the template, so the two never repeat each other. If what you have in mind is rows and columns, it belongs in the text, not here.
 
 Follow [writing.md](../poteto-mode/references/writing.md).
 

@@ -1,14 +1,14 @@
 # Refactoring
 
-The behavior stays fixed and only the structure moves. That promise is yours to keep. A bug or a missing feature you notice goes in the notes for its own Bug fix or Feature run.
+A user of this code should not be able to tell you were here. Every output, error, and side effect stays as it was. If you spot a real bug or a gap in features along the way, write it down and leave it for a separate Bug fix or Feature run.
 
-1. Lock down today's behavior before you move code. Existing tests can do it. So can a new test that records current outputs, a snapshot, or a script that diffs output. Type checks and lint do not lock behavior.
-2. Run that lock on the untouched code and save the output as the before evidence.
-3. Describe where the code should end up, its modules, types, and who calls whom, as if you were writing it fresh. Use the **design** skill (`../../design/SKILL.md`) when the change reaches past one function.
-4. Clear space first (`../references/principles/subtract-before-you-add.md`). Take out unused code and single-caller wrappers before the new structure goes in.
-5. Take small steps, and rerun the lock after each. If an API changes, move all of its callers and drop the old API during this pass (`../references/principles/migrate-callers-then-delete-legacy-apis.md`). Search string literals and docs for names you missed.
-6. Run the lock on the finished code and save that output as the after evidence. For a large reshape, add an output diff.
-7. Confirm a newcomer would find the result easier to read (`../references/principles/minimize-reader-load.md`). If not, undo your own edits from this run. Never discard changes you did not make.
+1. Pick the evidence that will prove nothing changed. Good options are the existing tests, a new test that captures what the code returns today, a snapshot, or a script that diffs output. A clean type check or lint run proves the code compiles, not that it behaves the same, so it does not count.
+2. Run that evidence on the code as it is now and keep the output.
+3. Picture the target. If this area were written today, what modules would it have, what types, and which pieces would call which? For anything bigger than one function, work it out with the **design** skill (`../../design/SKILL.md`).
+4. Remove before you rearrange (`../references/principles/subtract-before-you-add.md`). Code nothing calls and wrappers with one caller go first.
+5. Move in small steps and run the evidence after each one. When an internal API changes, update every caller and remove the old API in this same run (`../references/principles/migrate-callers-then-delete-legacy-apis.md`). Old names also hide in strings and docs, so search those.
+6. Run the evidence on the result and keep that output beside the first one. A large reshape also gets a diff of the two.
+7. Read the result as someone new to it would (`../references/principles/minimize-reader-load.md`). If it is not easier to follow, revert the edits you made in this run. Leave alone any change you did not make.
 8. Run the hand-off playbook (`hand-off.md`).
 
-**Reply:** the structural change, the lock you used, before and after evidence, how reading got easier, and anything you backed out. No behavior changes.
+**Reply:** first, how a reader's job got easier. Then what moved where, which evidence proved behavior held, the two outputs side by side, and any step you reverted. State that behavior is unchanged.

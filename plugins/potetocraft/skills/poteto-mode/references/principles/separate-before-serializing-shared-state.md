@@ -6,11 +6,9 @@ When two writers collide, the first question is not "which lock?" It is "why do 
 
 Example. Four build agents each append a result to `status.json`. Sometimes a result vanishes. The fix is not a lock around the file. Give each agent its own `status-<agent>.json` and let the reader merge them. No two writers ever touch the same bytes.
 
-Check yourself:
-- Writing different keys into the same file still counts as sharing the file.
-- Writing separate files does not.
+A quick test for whether writers are still sharing. Could one of them corrupt, truncate, or overwrite what another just wrote? Two agents updating different fields of one JSON file fail that test, because each one rewrites the whole file. Two agents with a file each cannot hurt each other.
 
-Only if one shared target is truly required should you serialize access. Use something the code enforces, such as a lock file, a single writer process, phases that run one after another, or an atomic compare and swap. A comment saying "only one at a time please" enforces nothing.
+Some targets must stay single, such as one release branch or one counter. Only then serialize, and let the code do it. A single process that owns all writes, an atomic compare and swap, phases that never overlap, or a lock file all work. A comment saying "only one at a time please" enforces nothing.
 
 Intermittent bugs that involve two actors and one object are the classic sign this was missed. Since races rarely reproduce on demand, a design where they cannot happen is worth more than a careful guard.
 

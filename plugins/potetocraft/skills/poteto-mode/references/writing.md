@@ -39,9 +39,7 @@ Keep one idea per sentence. If a reader would have to go back over it, break it 
 
 ## Formatting
 
-- No em dash or en dash characters. Use a period or a comma.
-- A colon is fine before a list or a code block. In the middle of a sentence, split into two sentences.
-- Bold only a short lead-in label that ends with a period and is followed by new information.
-- If a label just repeats its own content, such as "**Latency.** Latency improved", write a normal sentence.
-- Headings use sentence case.
-- No decorative emoji. Straight quotes only.
+- Headings use sentence case. Quotes are straight, and emoji never decorate.
+- Bold earns its place as a short label ending in a period, when the words after it add something the label did not say. "**Latency.** Latency improved" fails, so write it as one plain sentence.
+- Punctuate with periods and commas. Never use the em dash or en dash characters.
+- Put a colon only in front of a list or a code block. A colon joining two halves of a sentence should become a period.
