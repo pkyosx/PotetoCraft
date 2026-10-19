@@ -2,7 +2,7 @@
 
 **Apply when** the work has many steps, such as a sweep, a migration, or a run of similar edits, and when you plan how to present it for review.
 
-Break the work into small units that each end in a state you can check.
+Split the job into short steps. Each step finishes at a point you can verify.
 Do not start the next unit until the current one passes.
 Each unit has three parts. Start from a known good state, make one change, run the check.
 Start from a clean baseline so every check measures against the real starting point.

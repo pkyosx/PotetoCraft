@@ -4,8 +4,8 @@
 
 An operation should reach the same correct end state no matter how many times it runs or where the last run stopped.
 Read the current state, compare it with the goal, and apply only the difference.
-A step written this way is safe to repeat, because a repeat finds nothing left to do.
-Anything a run leaves behind, such as a lock, a temp file, a half-written record, or a claimed job, must be recognizable as stale by the next run.
+Running such a step again does no harm. The second run sees the goal already met and changes nothing.
+A crashed run may leave debris, for example a lock, a scratch file, a partial record, or a job marked as taken. The following run must be able to tell that debris is stale.
 Judge staleness with evidence that holds wherever the last run stopped, not only in the common case.
 Write to a temporary path and rename into place. Compare outputs by content, not by timestamp or order.
 

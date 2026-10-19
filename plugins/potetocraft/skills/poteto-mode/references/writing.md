@@ -10,7 +10,7 @@ Write clean as you draft. A cleanup pass afterward misses most of these.
 - **Unnamed sources.** "Experts say" or "it is widely known". Name the source you read, or drop the claim.
 - **Claims without evidence.** Each claim carries its evidence or a label (measured, inferred, guess) in the same sentence.
 - **Invented links or quotes.** Link only what you produced or read this session.
-- **Text that fits any project.** If a sentence could appear unchanged in another project's docs, it says nothing. Replace it with a fact, number, or instruction about this one.
+- **Text that fits any project.** A sentence you could paste into some other project's docs without edits carries no information. Replace it with a fact, number, or instruction about this one.
 - **Generic endings.** "This sets us up well for the future." End on the last real fact or the next concrete step.
 
 ## Word choice
@@ -21,7 +21,7 @@ Write clean as you draft. A cleanup pass afterward misses most of these.
 - **Synonym rotation.** Calling one thing by three names in a paragraph. Pick one name and repeat it.
 - **Adverbs propping up verbs.** "significantly faster" becomes the measured number. "runs quickly" becomes "takes 40 ms".
 - **Piled hedges.** "could potentially perhaps". Use one hedge, or none if you checked.
-- **Filler.** "In order to" becomes "to". "Due to the fact that" becomes "because". Drop "it is important to note that".
+- **Filler.** Cut "in order to" down to "to". Replace "owing to the fact that" with "because". Drop "it is important to note that".
 
 ## Sentence shape
 

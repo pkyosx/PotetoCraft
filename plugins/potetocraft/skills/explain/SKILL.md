@@ -54,7 +54,7 @@ Code is not evidence of its own intent. "It clamps to 100, so the author wanted 
 
 1. Decide the few things the person should leave with. Read why they ask from the conversation. They may be about to change it, review it, debug it, or be new to it. Skip what they already know.
 2. Run How and Why. Size each to the question. A small change may need only one.
-3. Start with a plain definition. Name the thing, say what it is in general, then tie it to this code.
+3. Open with a simple definition. Give the term, explain the general idea, and then connect it to this code.
 4. Explain each part as the problem it solves and how it solves it. Walk through what happens as the user does the thing.
 5. Give the smallest complete answer first, then stop. Offer to go deeper. Add layers when asked. No quizzes. No labels like "key insight."
 6. For three or more moving parts, draw a short series of diagrams. Each one redraws the last and adds one part. Use plain text diagrams or Mermaid only.
@@ -66,6 +66,6 @@ Restate your previous message in plain words. No jargon, no file paths unless th
 
 ## Writing
 
-Follow [writing.md](../poteto-mode/references/writing.md). Lead with what changes for the user, then the mechanism. Say "the `Cart` calls `Prices.refresh()`," not "the service delegates to a client." Give each concept one name and keep it.
+Follow [writing.md](../poteto-mode/references/writing.md). Lead with what changes for the user, then the mechanism. Say "the `Cart` calls `Prices.refresh()`," not "the service delegates to a client." Pick one name per concept and use only that name.
 
 **Reply.** The explanation itself, not a report about it. It leads with what matters to the user, carries Found, Inferred, and Unknown labels on every why claim, and ends with threads worth exploring next.

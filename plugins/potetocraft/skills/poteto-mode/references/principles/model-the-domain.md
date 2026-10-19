@@ -12,5 +12,5 @@ Organize a module around one body of domain knowledge, not around steps like loa
 When nothing obvious fits, write down what must never happen and how the data is read, then pick the structure that encodes exactly that.
 Do not force it. If the current code is clear, local, and unlikely to grow, leave it plain.
 
-You skipped this when a new feature adds one more branch to an existing if/else chain, or a second flag that must stay in sync with the first.
+You skipped this when a new feature adds one more branch to an existing if/else chain, or a new flag that has to be kept consistent with an older one by hand.
 You followed it when the new case is a new entry in a structure, not a new branch in the code.

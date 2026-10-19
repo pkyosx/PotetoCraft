@@ -46,9 +46,9 @@ While reviewers run, work on step 5 yourself.
 
 ## 5. Prove the safety fact
 
-Most risky-looking changes are safe because of one fact, such as "this call only drops cache entries that are already stale." Find that fact and write it as "It's safe because X." If X holds, most worries clear at once. Spend your effort here, not on a long list of maybes.
+Most risky-looking changes are safe because of one fact, such as "this call only drops cache entries that are already stale." Find that fact and write it as "It's safe because X." If X holds, most worries clear at once. Put your time into that one fact instead of listing every possible concern.
 
-Move X as far down this ladder as is cheap, and say where it stopped.
+Push X down this ladder while each step stays cheap, and report the rung where you stopped.
 
 1. Asserted. You said so. This proves nothing.
 2. Pointed at. A real `file:line`, or the library source at the pinned version.

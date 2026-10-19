@@ -9,7 +9,7 @@ Try a design in a cheap throwaway sketch before you build it for real.
 Get the details right. Spacing, alignment, transitions, feedback, and error states are part of the feature.
 Make the core workflow tight. Anything that does not serve it should stay out of the way.
 
-The user is whoever consumes the work. For an app it is the end user. For a library or internal API it is the developer who calls it. The next maintainer counts too.
+Your user is anyone downstream of the work. An app serves the people who open it. A library or internal API serves the developers who call it. The next maintainer counts too.
 Explain each tradeoff in terms of what that user will notice.
 [foundational-thinking](foundational-thinking.md) sets the order of the work. This principle sets the target.
 You broke this when an option exists only because it was easy to add, or an error state shows a raw stack trace.

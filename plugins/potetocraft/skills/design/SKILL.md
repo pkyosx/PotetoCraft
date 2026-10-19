@@ -1,6 +1,6 @@
 ---
 name: design
-description: Sketch data shapes, types, signatures, and module boundaries before writing code, compare options when there is no precedent, and keep the design honest while the code fills in. Use for "design this", "how should we structure this", "sketch the shape first", or non-trivial work where jumping to code would lock in the wrong shape.
+description: Sketch data shapes, types, signatures, and module boundaries before writing code, compare options when there is no precedent, and keep the design honest while the code fills in. Use for "design this", "how should we structure this", "sketch the shape first", or any sizable change where coding first would fix a poor structure in place.
 ---
 
 # Design
@@ -35,7 +35,7 @@ If there is no precedent, sketch two or three structurally different options. Di
 
 ## 4. Check red flags
 
-Assume the next contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. A good design makes the change that looks right from one file correct for the whole repo. Revise or reject an option that shows any of these.
+Picture the next contributor as an agent with a narrow view. It reads a few files, imitates whatever code sits closest, and stops at the first version that builds. A good design makes the change that looks right from one file correct for the whole repo. Revise or reject an option that shows any of these.
 
 - **Shallow module.** A wide interface over little behavior. Callers must call several methods in order to finish one task.
 - **Leaked decision.** A storage format, wire type, or policy appears in more than one module, so a change needs edits in several places.
@@ -78,6 +78,6 @@ One awkward case does not condemn a design. A pattern does. Watch for these.
 - A lock appearing where the sketch said state was not shared.
 - Callers needing to know the module's internal rules.
 
-When you see a pattern, go back to step 1 with what you learned. Redesign as if the new facts were known on day one. Make the new sketch smaller than the old one before it grows. See [redesign-from-first-principles](../poteto-mode/references/principles/redesign-from-first-principles.md) and [subtract-before-you-add](../poteto-mode/references/principles/subtract-before-you-add.md). Present the new design to the user before building further.
+When you see a pattern, go back to step 1 with what you learned. Redesign as if the new facts were known on day one. Shrink the sketch below its old size first, and only then let it expand. See [redesign-from-first-principles](../poteto-mode/references/principles/redesign-from-first-principles.md) and [subtract-before-you-add](../poteto-mode/references/principles/subtract-before-you-add.md). Present the new design to the user before building further.
 
 **Reply.** The design write-up from step 5 with the recommendation, then, once building starts, each deviation from the sketch and how the design changed.

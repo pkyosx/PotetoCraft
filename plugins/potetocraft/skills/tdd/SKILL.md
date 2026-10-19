@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Write a failing test first, make it pass, then clean up. Use when the user asks for TDD, a failing test, or a regression test, or when a bug has an obvious, cheap local test target.
+description: Write a failing test first, make it pass, then clean up. Use when the user requests test-driven development, a red test, or a regression test, or when a bug already has an obvious, cheap local test target.
 ---
 
 # TDD
@@ -9,7 +9,7 @@ Make the wanted behavior executable before you change production code. The test 
 
 ## When to use it
 
-- The user asks for TDD, a failing test, or a regression test.
+- The user requests test-driven development, a red test first, or a regression test.
 - A bug has an obvious, cheap test target that already exists, such as a unit or integration test file for that code path.
 
 ## When to skip it
@@ -17,7 +17,7 @@ Make the wanted behavior executable before you change production code. The test 
 Skip the new test and say why when any of these hold.
 
 - No test path is obvious, and building one would mean new harness setup.
-- The test would need slow end-to-end infrastructure, production-only state, or large unrelated fixtures.
+- The only possible test depends on slow full-stack setup, state that exists only in production, or big fixtures unrelated to the bug.
 - The test would mostly check mocks, depend on timing, or copy the current implementation.
 - The reproduction steps are vague.
 

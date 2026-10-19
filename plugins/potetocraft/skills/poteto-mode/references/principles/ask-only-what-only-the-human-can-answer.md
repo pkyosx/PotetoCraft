@@ -3,7 +3,7 @@
 **Apply when** you are about to ask the user a question, or about to take an action that reaches beyond the local working tree.
 
 For local work you can undo, such as reading code, running tests, running the app locally, or editing files, do it and explain why. Do not ask "should I?".
-If the question is a fact you could observe by running something, run it instead of asking.
+When a command or test could reveal the answer, run it and skip the question.
 Ask the user only for product or preference calls that no experiment can settle.
 Always stop before outward actions. These are commit, push, opening or updating a PR, merge, posting comments or replies, sending messages, and creating or editing tickets.
 Always stop before deleting files, folders, branches, worktrees, or caches.

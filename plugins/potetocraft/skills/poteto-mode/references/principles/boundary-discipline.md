@@ -2,7 +2,7 @@
 
 **Apply when** you wire up validation, error handling, or adapters for a framework or external system.
 
-Check and convert data where it enters the system, then trust it inside.
+Validate and parse input at the edge it comes in through. Past that edge, internal code relies on it.
 Boundaries are command line arguments, config files, network input, and responses from external services.
 At a boundary, validate, parse into domain types, and return clear errors.
 Inside, pass typed data and let errors propagate. Do not check the same thing again.

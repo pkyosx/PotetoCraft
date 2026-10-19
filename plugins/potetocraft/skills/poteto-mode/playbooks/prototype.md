@@ -10,4 +10,4 @@ You own the decision, not the code. A prototype is a throwaway instrument. It se
 6. Decide from the observation. Leave the scratch directory in place.
 7. Run the hand-off playbook (`hand-off.md`).
 
-**Reply:** the question, the variants tried, what you observed, your recommendation, and the scratch path. Say plainly that the prototype is throwaway.
+**Reply:** the question, the variants tried, what you observed, what you recommend, and the scratch path. State clearly that the prototype code is not meant to ship.

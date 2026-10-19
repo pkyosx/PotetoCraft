@@ -1,6 +1,6 @@
 # Separate Before Serializing Shared State
 
-**Apply when** concurrent actors might write to the same file, branch, key, or state object.
+**Apply when** more than one process, agent, or worker could change one shared file, branch, key, or state object at the same time.
 
 First ask whether the actors really need the same writable object.
 Usually they are each publishing their own facts. Give each actor its own file, key, or directory, and combine the results only where they are read.

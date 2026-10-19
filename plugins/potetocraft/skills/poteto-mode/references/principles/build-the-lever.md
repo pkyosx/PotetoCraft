@@ -5,7 +5,7 @@
 Build the tool that does the work or proves it, instead of doing it by hand.
 A codemod, generator, script, or rerunnable query gives the same result every time and costs nothing to run again.
 A reviewer can read the tool and rerun it. Hand edits can only be checked by doing them again.
-Do the first unit by hand to learn the recipe. Then write the tool, run it on that unit, and compare with your hand version.
+Work through one unit manually so you know the exact steps. Then write the tool, run it on that unit, and compare with your hand version.
 Make the tool safe to run twice, per [make-operations-idempotent](make-operations-idempotent.md).
 If one script can handle every unit, run it yourself instead of fanning out subagents to apply edits by hand.
 When you do fan out, write the recipe, the check, and the files not to touch in one shared instruction file that the subagents read but cannot edit.

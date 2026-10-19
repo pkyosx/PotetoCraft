@@ -2,7 +2,7 @@
 
 You own the numbers. Every fix ties to a measurement. Reading the source is not a substitute for measuring.
 
-1. Write down the claim you expect to make, in the words you would report.
+1. Draft the sentence you hope to report at the end, exactly as you would phrase it.
 2. Capture a baseline on the real path the user waits on. Vet it with `../references/measurement-checklist.md`.
 3. Explain the baseline number (`../references/principles/explain-the-number.md`). Name what limits it before you plan a fix.
 4. Try the cheapest ideas first. Skip work whose result nothing uses. Avoid repeating work. Do less of it. Do it later or off the critical path. Do it concurrently. Make it cheaper. Stop once the target is met.
