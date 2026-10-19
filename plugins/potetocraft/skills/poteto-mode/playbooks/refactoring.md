@@ -8,7 +8,7 @@ A user of this code should not be able to tell you were here. Every output, erro
 4. Remove before you rearrange (`../references/principles/subtract-before-you-add.md`). Code nothing calls and wrappers with one caller go first.
 5. Move in small steps and run the evidence after each one. When an internal API changes, update every caller and remove the old API in this same run (`../references/principles/migrate-callers-then-delete-legacy-apis.md`). Old names also hide in strings and docs, so search those.
 6. Run the evidence on the result and keep that output beside the first one. A large reshape also gets a diff of the two.
-7. Read the result as someone new to it would (`../references/principles/minimize-reader-load.md`). If it is not easier to follow, revert the edits you made in this run. Leave alone any change you did not make.
+7. Read the result as someone new to it would (`../references/principles/minimize-reader-load.md`). If it is not easier to follow, revert the edits you made in this run by editing those lines back, not with `git checkout` or `git reset`. Leave alone any change you did not make.
 8. Run the hand-off playbook (`hand-off.md`).
 
 **Reply:** first, how a reader's job got easier. Then what moved where, which evidence proved behavior held, the two outputs side by side, and any step you reverted. State that behavior is unchanged.
