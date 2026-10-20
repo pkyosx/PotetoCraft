@@ -21,7 +21,7 @@ What PotetoCraft changes from pstack:
 
 | Skill | Invoke | What it does |
 | --- | --- | --- |
-| `poteto-mode` | you type it | The main workflow. Picks a playbook (investigation, bug fix, feature, refactoring, perf issue, prototype, PR review), applies engineering principles, verifies, and ends with a hand-off report. |
+| `poteto-mode` | you or the agent | The main workflow. Picks a playbook (investigation, bug fix, feature, refactoring, perf issue, prototype, PR review), applies engineering principles, verifies, and ends with a hand-off report. |
 | `review` | you or the agent | Reviews a diff or PR for correctness, blast radius, design, tests, and comments. Report only. |
 | `explain` | you or the agent | Explains how code works and why it is that way, from the code and local git history. |
 | `design` | you or the agent | Sketches data shapes, types, and module boundaries before code, with options and tradeoffs. |
@@ -73,7 +73,7 @@ PotetoCraft 和 pstack 的差異：
 
 | Skill | 觸發方式 | 用途 |
 | --- | --- | --- |
-| `poteto-mode` | 由你輸入 | 主流程。選擇 playbook（調查、修 bug、新功能、重構、效能、原型、PR review），套用工程原則、實際驗證，最後產出交付報告。 |
+| `poteto-mode` | 你或 agent | 主流程。選擇 playbook（調查、修 bug、新功能、重構、效能、原型、PR review），套用工程原則、實際驗證，最後產出交付報告。 |
 | `review` | 你或 agent | 審查 diff 或 PR 的正確性、影響範圍、設計、測試與註解，只產出報告。 |
 | `explain` | 你或 agent | 從程式碼與本機 git 歷史，說明程式怎麼運作、為什麼這樣設計。 |
 | `design` | 你或 agent | 寫程式前先畫出資料結構、型別與模組邊界，列出選項與取捨。 |

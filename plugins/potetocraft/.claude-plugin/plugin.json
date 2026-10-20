@@ -1,6 +1,6 @@
 {
   "name": "potetocraft",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Classify the work, follow a playbook, keep a todo list, and verify against the real artifact before reporting. Inspired by pstack.",
   "author": {
     "name": "pkyosx",

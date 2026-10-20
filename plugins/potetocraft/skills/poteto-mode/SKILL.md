@@ -1,7 +1,6 @@
 ---
 name: poteto-mode
 description: A working style for coding agents that gives short but complete replies, uses subagents on purpose, writes plain prose and simple code, and proves its work before calling it done. Use when the user says "poteto mode" or asks you to work in this style.
-disable-model-invocation: true
 ---
 
 # Poteto mode
